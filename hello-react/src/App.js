@@ -4,10 +4,18 @@ import { Component, Fragment } from 'react';
 // import MyComponent from './component/MyComponent';
 // import Counter from './component/Counter';
 // import Say from './component/Say';
-import EventPractice from './component/EvnetPractice';
-import FuncEventPracice from './component/FuncEventPractice';
-import ValidationSample from './component/ValidationSample';
-import ScrollBox from './component/ScrollBox';
+import EventPractice from './components/EvnetPractice';
+import FuncEventPracice from './components/FuncEventPractice';
+import ValidationSample from './components/ValidationSample';
+import ScrollBox from './components/ScrollBox';
+import IterationSample from './components/IterationSample'
+import LifeCycleSample from './components/LifeCycleSample';
+import ErrorBoundary from './error/ErrorBoundary';
+
+// ! chapter 7
+function getRandomColor() {
+  return '#' + Math.floor(Math.random() * 16777215).toString(16);
+}
 
 // function App() {
 class App extends Component {
@@ -28,12 +36,40 @@ class App extends Component {
 
   //! Chapter5
   // return <ValidationSample />
+  // render() {
+  //   return (
+  //     <div>
+  //       <ScrollBox ref={(ref) => this.scrollBox = ref} />
+  //       <button onClick={() => this.scrollBox.scrollToBottom()}> 밑으로</button>
+  //     </div >
+  //   )
+  // }
+
+  //! Chapter 6
+  // render() {
+  //   return (
+  //     <IterationSample />
+  //   );
+  // }
+
+  // ! chapter 7
+
+  state = {
+    color: '#000000'
+  }
+  handleClick = () => {
+    this.setState({
+      color: getRandomColor()
+    })
+  }
   render() {
     return (
       <div>
-        <ScrollBox ref={(ref) => this.scrollBox = ref} />
-        <button onClick={() => this.scrollBox.scrollToBottom()}> 밑으로</button>
-      </div >
+        <button onClick={this.handleClick}>랜덤 색상</button>
+        <ErrorBoundary>
+          <LifeCycleSample color={this.state.color}></LifeCycleSample>
+        </ErrorBoundary>
+      </div>
     )
   }
 }
